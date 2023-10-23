@@ -80,7 +80,7 @@ interface LinkItemProps {
   tooltip?: string;
 }
 const NormalLinkItems: LinkItemProps[] = [
-  { name: "Overview", icon: FiHome, href: "/dashboard" },
+  { name: "Overview", icon: FiHome, href: "/" },
   {
     name: "Pit Display",
     icon: FiMonitor,
@@ -103,12 +103,12 @@ const NormalLinkItems: LinkItemProps[] = [
   {
     name: "Attendance",
     icon: FiExternalLink,
-    href: "/attendance/home",
+    href: "/attendance",
   },
   {
     name: "Scouting",
     icon: FiExternalLink,
-    href: "/scouting/home",
+    href: "/scouting/",
   },
   { name: "Settings", icon: FiTool, href: "/settings" },
   { name: "Admin Settings", icon: FiSettings, href: "/settings" },
@@ -116,7 +116,7 @@ const NormalLinkItems: LinkItemProps[] = [
 ];
 
 const ScoutingLinkItems: LinkItemProps[] = [
-  { name: "Event Overview", icon: FiHome, href: "/scouting/home" },
+  { name: "Event Overview", icon: FiHome, href: "/scouting" },
   { name: "Explore Matches", icon: FiMap, href: "/scouting/matches" },
   { name: "Explore Teams", icon: FiCompass, href: "/scouting/explore" },
   {
@@ -181,10 +181,10 @@ export default function SidebarWithHeader({
     // Read the current path from the URL
     const path = window.location.pathname;
     // If the path is /scouting, change the LinkItems to ScoutingLinkItems
-    if (path.includes("/scouting/")) {
+    if (path.includes("/scouting/") || path === "/scouting") {
       setLinkItems(ScoutingLinkItems);
       setInSubMenu(true);
-    } else if (path.includes("/attendance/")) {
+    } else if (path.includes("/attendance/") || path === "/attendance") {
       setLinkItems(AttendanceLinkItems);
       setInSubMenu(true);
     }
@@ -265,7 +265,7 @@ const SidebarContent = ({
           marginBottom={4}
           // bg={useColorModeValue("white", "gray.900")}
         >
-          <Link href="/main">
+          <Link href="/">
             <Button variant={"outline"}>
               <Icon as={FiHome} mr={2} />
               Back to Dashboard
