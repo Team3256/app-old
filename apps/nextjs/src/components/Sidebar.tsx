@@ -117,8 +117,8 @@ const NormalLinkItems: LinkItemProps[] = [
 
 const ScoutingLinkItems: LinkItemProps[] = [
   { name: "Event Overview", icon: FiHome, href: "/scouting" },
-  { name: "Explore Matches", icon: FiMap, href: "/scouting/matches" },
-  { name: "Explore Teams", icon: FiCompass, href: "/scouting/explore" },
+  { name: "Matches", icon: FiMap, href: "/scouting/matches" },
+  { name: "Teams", icon: FiCompass, href: "/scouting/teams" },
   {
     name: "Compare Teams",
     icon: FiGitPullRequest,
@@ -127,9 +127,14 @@ const ScoutingLinkItems: LinkItemProps[] = [
   { name: "Match Predictions", icon: FiTrendingUp, href: "/scouting/predict" },
   { name: "Favorite Teams", icon: FiStar, href: "/scouting/favorite" },
   {
+    name: ":G",
+    icon: FiTv,
+    href: "/scouting/streams",
+  },
+  {
     name: "Assign Member Roles",
     icon: FiUserCheck,
-    href: "/scouting/settings",
+    href: "/scouting/members",
   },
   { name: "Invite Alliance Member", icon: FiMail, href: "/scouting/invite" },
 ];
@@ -141,22 +146,22 @@ const AttendanceLinkItems: LinkItemProps[] = [
     href: "/attendance/home",
   },
   {
-    name: "Per-Member Attendance",
+    name: "Members",
     icon: FiUserCheck,
     href: "/attendance/member",
   },
   {
-    name: "Per-Meeting Attendance",
+    name: "Meetings",
     icon: FiCheckSquare,
     href: "/attendance/meeting",
   },
   {
-    name: "At-Risk Members",
+    name: "Members at Risk",
     icon: FiAlertTriangle,
     href: "/attendance/at-risk",
   },
   {
-    name: "Manage Auto-Attendance",
+    name: "Auto Attendance",
     icon: FiUserPlus,
     href: "/attendance/auto",
   },
@@ -532,7 +537,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     spacing="1px"
                     ml="2"
                   >
-                    <Text fontSize="sm">Vivek Nadig</Text>
+                    <Text fontSize="sm">joe mama</Text>
                     <Text fontSize="xs" color="gray.600">
                       Admin
                     </Text>
@@ -548,7 +553,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               >
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Settings</MenuItem>
-                <MenuItem
+                {/* <MenuItem
                   onClick={(e) => {
                     e.preventDefault();
                     if (
@@ -567,7 +572,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   }}
                 >
                   {isProMode ? "Disable" : "Enable"} Comp Mode
-                </MenuItem>
+                </MenuItem> */}
                 <MenuDivider />
                 <MenuItem>Sign out</MenuItem>
               </MenuList>

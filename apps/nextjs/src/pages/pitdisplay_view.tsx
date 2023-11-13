@@ -21,6 +21,16 @@ export default function PitDisplay() {
         {" "}
         Remove Lock on Popup{" "}
       </Button>
+      <Button
+        onClick={() => {
+          window.opener.postMessage("unlock", "*");
+          // Fullscreen using the browser's API
+          const elem = document.documentElement;
+          elem.requestFullscreen();
+        }}
+      >
+        Full Screen
+      </Button>
     </SidebarWithHeader>
   );
 }

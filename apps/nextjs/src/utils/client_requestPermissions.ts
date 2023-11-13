@@ -35,8 +35,26 @@ export function requestClientPermissions() {
 }
 
 export function checkClientPermissions() {
+  if (process.env.NODE_ENV === "development") {
+    return true;
+  } else if (process.env.NODE_ENV === "production") {
+    return true; // this des not work - do this 
+  }
   if (typeof window !== "undefined") {
     if ("Notification" in window) {
+      if (!sessionStorage.getItem("checkedClientPermissions")) {
+        console.log(`
+
+Team 3256 - 2023 App
+
+
+        Notification.permission: ${Notification.permission}
+        sessionStorage.getItem("checkedClientPermissions"): ${sessionStorage.getItem(
+          "checkedClientPermissions",
+        )}
+        `);
+      }
+      sessionStorage.setItem("checkedClientPermissions", "true");
       return Notification.permission === "granted";
     }
   }

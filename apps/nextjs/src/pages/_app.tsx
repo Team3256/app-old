@@ -22,9 +22,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   // Check if the user has the required permissions
-  console.log(checkClientPermissions());
+  // console.log(checkClientPermissions());
 
-  if (!checkClientPermissions()) {
+  if (!checkClientPermissions() && typeof window !== "undefined" && false) {
     return (
       <ChakraProvider>
         <Alert status="error">

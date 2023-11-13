@@ -1,3 +1,4 @@
+import { clearInterval } from "timers";
 import {
   Alert,
   AlertDescription,
@@ -85,19 +86,26 @@ export default function Home() {
             ) {
               popup.moveTo(0, 0);
               popup.resizeTo(screen.availWidth, screen.availHeight);
-              const forceLock = setInterval(() => {
+              let forceLock: null | NodeJS.Timer = setInterval(() => {
                 popup.moveTo(0, 0);
                 popup.resizeTo(screen.availWidth, screen.availHeight);
               }, 10);
               popup.onbeforeunload = () => {
-                clearInterval(forceLock);
+                clearInterval(forceLock!);
               };
               // On postMessage from popup, close it
               window.addEventListener("message", (event) => {
                 if (event.data === "close") {
                   popup.close();
                 } else if (event.data === "unlock") {
-                  clearInterval(forceLock);
+                  clearInterval(forceLock!);
+                  forceLock = null;
+                } else if (event.data === "lock") {
+                  clearInterval(forceLock!);
+                  forceLock = setInterval(() => {
+                    popup.moveTo(0, 0);
+                    popup.resizeTo(screen.availWidth, screen.availHeight);
+                  }, 10);
                 }
               });
             }
