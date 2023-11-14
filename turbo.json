@@ -1,47 +1,18 @@
 {
-  "$schema": "https://turborepo.org/schema.json",
-  "globalDependencies": ["**/.env", "tsconfig.json"],
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
   "pipeline": {
-    "db:generate": {
-      "inputs": ["prisma/schema.prisma"],
-      "cache": false
-    },
-    "db:push": {
-      "inputs": ["prisma/schema.prisma"],
-      "cache": false
+    "build": {
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
+      "dependsOn": ["^build"]
     },
     "dev": {
-      "persistent": true,
-      "cache": false
-    },
-    "build": {
-      "dependsOn": ["^build", "^db:generate"],
-      "outputs": [".next/**", ".expo/**"]
+      "cache": false,
+      "persistent": true
     },
     "lint": {},
-    "lint:fix": {},
     "clean": {
       "cache": false
-    },
-    "//#clean": {
-      "cache": false
-    },
-    "type-check": {
-      "dependsOn": ["^db:generate"],
-      "cache": false
     }
-  },
-  "globalEnv": [
-    "CI",
-    "DATABASE_URL",
-    "DISCORD_CLIENT_ID",
-    "DISCORD_CLIENT_SECRET",
-    "EXPO_ROUTER_APP_ROOT",
-    "NEXTAUTH_SECRET",
-    "NEXTAUTH_URL",
-    "NODE_ENV",
-    "SKIP_ENV_VALIDATION",
-    "VERCEL",
-    "VERCEL_URL"
-  ]
+  }
 }
