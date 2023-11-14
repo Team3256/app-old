@@ -11,7 +11,7 @@ import {
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 
-import { api } from "~/utils/api";
+// import { api } from "~/utils/api";
 import {
   checkClientPermissions,
   requestClientPermissions,

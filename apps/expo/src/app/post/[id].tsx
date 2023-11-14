@@ -1,7 +1,7 @@
 import { SafeAreaView, Text, View } from "react-native";
 import { SplashScreen, Stack, useSearchParams } from "expo-router";
 
-import { api } from "~/utils/api";
+// import { api } from "~/utils/api";
 
 function Post() {
   const { id } = useSearchParams();

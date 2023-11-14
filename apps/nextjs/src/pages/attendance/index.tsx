@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import QRCode from "react-qr-code";
 
-import { api } from "~/utils/api";
+// import { api } from "~/utils/api";
 import useNow from "~/utils/useNow";
 import SidebarWithHeader from "~/components/Sidebar";
 
@@ -24,6 +24,7 @@ export default function Home() {
   useEffect(() => {
     // Every 30 seconds, get the PIN from the server
     const interval = setInterval(() => {
+      // XXX: remove this and replace it with supabase
       const serverPin = api.attendance.getAttendanceQRURL.useQuery();
       setPin(serverPin.data);
       setLastReset(Date.now());
