@@ -8,8 +8,9 @@ import {
   Button,
   ChakraProvider,
 } from "@chakra-ui/react";
-import type { Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
+
+// import type { Session } from "next-auth";
+// import { SessionProvider } from "next-auth/react";
 
 // import { api } from "~/utils/api";
 import {
@@ -17,7 +18,7 @@ import {
   requestClientPermissions,
 } from "~/utils/client_requestPermissions";
 
-const MyApp: AppType<{ session: Session | null }> = ({
+const MyApp: AppType<{ session: null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
@@ -46,9 +47,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return (
     <ChakraProvider>
-      <SessionProvider session={session}>
-        <Component {...pageProps} />
-      </SessionProvider>
+      {/* <SessionProvider session={session}> */}
+      <Component {...pageProps} />
+      {/* </SessionProvider> */}
     </ChakraProvider>
   );
 };

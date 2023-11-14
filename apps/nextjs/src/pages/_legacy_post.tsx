@@ -1,7 +1,8 @@
 import { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { signIn, signOut } from "next-auth/react";
+
+// import { signIn, signOut } from "next-auth/react";
 
 // import { api } from "~/utils/api";
 // import type { RouterOutputs } from "~/utils/api";
