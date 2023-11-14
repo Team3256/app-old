@@ -1,18 +1,24 @@
 {
-  "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "$schema": "https://turborepo.org/schema.json",
   "pipeline": {
+    "lint": {
+      "outputs": []
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "inputs": ["**/*.{ts,tsx,js,jsx}"]
+    },
     "build": {
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["^build"],
+      "outputs": [
+        ".next/**",
+        "build/**",
+        "node_modules/.cache/metro/**"
+      ]
     },
     "dev": {
       "cache": false,
       "persistent": true
-    },
-    "lint": {},
-    "clean": {
-      "cache": false
     }
   }
 }
