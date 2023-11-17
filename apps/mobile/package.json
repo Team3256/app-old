@@ -15,7 +15,6 @@
     "eas-build-post-install": "pnpm run -w build:mobile"
   },
   "dependencies": {
-    "@acme/feature-home": "*",
     "expo": "^49.0.10",
     "expo-dev-client": "~2.4.8",
     "expo-status-bar": "~1.6.0",
