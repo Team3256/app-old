@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "expo-monorepo",
-    "slug": "expo-monorepo",
+    "name": "app",
+    "slug": "app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "net.vcrobotics.app",
       "buildNumber": "1.0.0",
@@ -30,6 +28,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7f86376f-9f10-43f4-8792-04a7c0d04265"
+      }
+    },
+    "owner": "warriorborgs"
   }
 }
