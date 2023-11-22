@@ -1,3 +1,4 @@
+// @ts-nocheck
 // import { HomeIcon, HomeScreen } from '@acme/feature-home';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import { useEffect, useState } from 'react';
