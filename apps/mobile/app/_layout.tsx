@@ -27,7 +27,7 @@ export default function Page() {
             }}
           />
           <Tabs.Screen
-            name="attendance"
+            name="index"
             options={{
               title: 'Attendance',
               tabBarIcon: ({ color, size }) => <Clock size={size} color={color} />,

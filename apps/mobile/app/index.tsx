@@ -1,28 +1,52 @@
 // import { HomeIcon, HomeScreen } from '@acme/feature-home';
-import { Link, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
-import { Button } from 'tamagui';
+import { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, Image, Button } from 'react-native';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 export default function App() {
+  const [hasPermission, setHasPermission] = useState(null);
+  const [scanned, setScanned] = useState(false);
+
   useEffect(() => {
-    router.replace('/attendance'); // weird hack.
+    const getBarCodeScannerPermissions = async () => {
+      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      setHasPermission(status === 'granted');
+    };
+
+    getBarCodeScannerPermissions();
   }, []);
+
+  const handleBarCodeScanned = ({ type, data }) => {
+    setScanned(true);
+    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+  };
+
+  if (hasPermission === null) {
+    return <Text>Requesting for camera permission</Text>;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to camera</Text>;
+  }
 
   return (
     <View style={styles.container}>
-      <Text>You shouldn't be here.</Text>
-      <Button>
-        <Link
-          replace
-          href="/attendance"
-          style={{
-            color: 'white',
-          }}
-        >
-          <Text>Attendance</Text>
-        </Link>
-      </Button>
+      <Text>Attendance!</Text>
+      <Image
+        style={{
+          width: 120,
+          height: 120,
+        }}
+        source={{
+          uri: 'https://i.imgur.com/7JX0ZSv.png',
+        }}
+      />
+      {/* <HomeIcon style={{ fontSize: 64 }} /> */}
+      {/* <HomeScreen /> */}
+      <BarCodeScanner
+        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+        style={StyleSheet.absoluteFillObject}
+      />
+      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
     </View>
   );
 }
