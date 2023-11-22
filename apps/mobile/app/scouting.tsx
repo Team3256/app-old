@@ -1,10 +1,11 @@
 // import { HomeIcon, HomeScreen } from '@acme/feature-home';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View, Text } from 'react-native';
-import { Button, Header } from 'tamagui';
-import { API_URL } from '../constants';
-import { useState } from 'react';
 import type { TeamEventResponse } from '@acme/tba/team';
+import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import { Button } from 'tamagui';
+
+import { API_URL } from '../constants';
 
 export default function App() {
   // Pull the events from the API

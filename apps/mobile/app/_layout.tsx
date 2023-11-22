@@ -1,10 +1,9 @@
-import { Text } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { TamaguiProvider } from 'tamagui';
-import config from '../tamagui.config';
-import { StatusBar } from 'expo-status-bar';
+import { CalendarCheck, Clock, Gamepad2, Settings } from '@tamagui/lucide-icons';
 import { Tabs } from 'expo-router/tabs';
-import { CalendarCheck, Clock, Gamepad2, Settings, User2 } from '@tamagui/lucide-icons';
+import { StatusBar } from 'expo-status-bar';
+import { TamaguiProvider } from 'tamagui';
+
+import config from '../tamagui.config';
 export default function Page() {
   return (
     <>
