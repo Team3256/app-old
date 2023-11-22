@@ -1,14 +1,14 @@
-// import { HomeIcon, HomeScreen } from '@acme/feature-home';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View, Text } from 'react-native';
 
-export default function App() {
+export default function TabOneScreen() {
   return (
     <View style={styles.container}>
-      <Text>Settings!</Text>
-      {/* <HomeIcon style={{ fontSize: 64 }} /> */}
-      {/* <HomeScreen /> */}
-      <StatusBar style="auto" />
+      <Text style={styles.title}>Tab One</Text>
+      <View style={styles.separator} />
+      <Text>
+        This is the first tab. You can put anything you want here, such as more components,
+        navigation, or data.
+      </Text>
     </View>
   );
 }
@@ -16,8 +16,16 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: '80%',
   },
 });

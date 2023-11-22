@@ -5,7 +5,7 @@ import { StyleSheet, View, Text } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Schedule!</Text>
+      <Text>Scouting!</Text>
       {/* <HomeIcon style={{ fontSize: 64 }} /> */}
       {/* <HomeScreen /> */}
       <StatusBar style="auto" />

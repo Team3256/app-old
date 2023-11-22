@@ -35,6 +35,14 @@
         "projectId": "7f86376f-9f10-43f4-8792-04a7c0d04265"
       }
     },
-    "owner": "warriorborgs"
+    "owner": "warriorborgs",
+    "plugins": [
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera. This is required to scan QR codes for attendance, and to scout other teams."
+        }
+      ]
+    ]
   }
 }
