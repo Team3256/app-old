@@ -24,10 +24,10 @@ jobs:
         uses: ./.github/actions/setup-monorepo
 
       - name: ✅ Lint packages
-        run: pnpm run -w lint
+        run: pnpm run lint
 
       - name: 👷 Build packages
-        run: pnpm run -w build
+        run: pnpm run build
 
       - name: 🧪 Test packages
-        run: pnpm run -w test
+        run: pnpm run test
