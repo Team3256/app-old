@@ -11,6 +11,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  TBA_API_KEY: $ {{ secrets.TBA_API_KEY }}
+
 jobs:
   packages:
     runs-on: ubuntu-latest
