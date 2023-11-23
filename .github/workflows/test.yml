@@ -12,7 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  TBA_API_KEY: $ {{ secrets.TBA_API_KEY }}
+  TBA_API_KEY: ${{ secrets.TBA_API_KEY }}
 
 jobs:
   packages:
