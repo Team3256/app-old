@@ -62,26 +62,22 @@ export default function App() {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    setTimeout(() => {
+      setScanned(false);
+    }, 5000);
   };
 
   return (
     <View style={styles.container}>
       <Text>Attendance!</Text>
-      <Image
-        style={{
-          width: 120,
-          height: 120,
-        }}
-        source={{
-          uri: 'https://i.imgur.com/7JX0ZSv.png',
-        }}
-      />
       {/* <HomeIcon style={{ fontSize: 64 }} /> */}
       {/* <HomeScreen /> */}
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
-      />
+      <View style={styles.qrCodeContainer}>
+        <BarCodeScanner
+          onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+          style={StyleSheet.absoluteFillObject}
+        />
+      </View>
       <Text>Has permission: {hasPermission.toString()}</Text>
 
       {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
@@ -95,5 +91,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  // Centered QR code container, with a fixed size
+  qrCodeContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 200,
+    height: 200,
   },
 });

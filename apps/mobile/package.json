@@ -12,7 +12,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eas-build-pre-install": "npm install --global pnpm@7.x",
-    "eas-build-post-install": "pnpm run -w build:mobile"
+    "eas-build-post-install": "pnpm run -w build:mobile",
+    "check:expo": "expo diagnostics -w"
+
   },
   "dependencies": {
     "@tamagui/font-inter": "^1.78.0",
@@ -29,6 +31,7 @@
     "expo-updates": "~0.18.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.48.2",
     "react-native": "0.72.4",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-prompt": "^1.0.0",

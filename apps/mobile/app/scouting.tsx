@@ -3,7 +3,7 @@ import type { TeamEventResponse } from '@acme/tba/team';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { Button } from 'tamagui';
+import { Button, Progress } from 'tamagui';
 
 import { API_URL } from '../constants';
 
@@ -44,6 +44,11 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Scouting</Text>
+      {events.length === 0 && (
+        <>
+          <Text>Loading...</Text>
+        </>
+      )}
       {events.map((event) => {
         return (
           <View key={event.key}>
