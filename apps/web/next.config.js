@@ -1,4 +1,23 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+module.exports = {
+  reactStrictMode: true,
+  swcMinify: true,
+  webpack: (config) => {
+    // Set the alias from `react-native` to `react-native-web`
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      'react-native': 'react-native-web',
+    };
 
-module.exports = nextConfig
+    // Add custom `.web.{jsx?,tsx?}` extension resolver
+    config.resolve.extensions = [
+      '.web.js',
+      '.web.jsx',
+      '.web.ts',
+      '.web.tsx',
+      ...config.resolve.extensions,
+    ];
+
+    return config;
+  },
+};
