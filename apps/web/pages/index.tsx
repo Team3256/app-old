@@ -1,4 +1,3 @@
-import { HomeScreen, HomeIcon } from '@acme/feature-home';
 import Head from 'next/head';
 
 import styles from '../styles/Home.module.css';
@@ -13,8 +12,9 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <HomeIcon style={{ fontSize: 64 }} />
-        <HomeScreen style={{ fontSize: 24, margin: 12 }} />
+        <p>
+          Welcome to Expo monorepo. This is the web app. Check out the <a href="/api">API</a>.
+        </p>
       </main>
     </div>
   );

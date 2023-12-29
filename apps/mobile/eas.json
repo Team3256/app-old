@@ -1,33 +1,31 @@
 {
   "cli": {
-    "promptToConfigurePushNotifications": false
+    "version": ">= 3.3.0"
   },
   "build": {
-    "monorepo": {
-      "cache": {
-        "key": "turbo",
-        "paths": ["../../node_modules/.cache/turbo"]
+    "base": {
+      "node": "18.15.0",
+      "ios": {
+        "resourceClass": "m-medium"
       }
     },
     "development": {
-      "extends": "monorepo",
+      "extends": "base",
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "extends": "base",
       "distribution": "internal",
-      "android": {
-        "buildType": "apk"
-      },
       "ios": {
-        "resourceClass": "m1-medium"
+        "simulator": true
       }
     },
     "production": {
-      "extends": "monorepo",
-      "distribution": "store",
-      "android": {
-        "buildType": "app-bundle"
-      },
-      "ios": {
-        "resourceClass": "m1-medium"
-      }
+      "extends": "base"
     }
+  },
+  "submit": {
+    "production": {}
   }
 }
