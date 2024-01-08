@@ -1,139 +1,213 @@
-<div align="center">
-  <h1>Expo monorepo</h1>
-  <p>Fast pnpm monorepo for cross-platform apps built with Expo and React</p>
-</div>
+# create-t3-turbo
 
-<p align="center">
-  <a href="https://github.com/byCedric/expo-monorepo-example#-why-is-it-fast"><b>Why is it fast?</b></a>
-  &ensp;&mdash;&ensp;
-  <a href="https://github.com/byCedric/expo-monorepo-example#-how-to-use-it"><b>How to use it</b></a>
-  &ensp;&mdash;&ensp;
-  <a href="https://github.com/byCedric/expo-monorepo-example#-structure"><b>Structure</b></a>
-  &ensp;&mdash;&ensp;
-  <a href="https://github.com/byCedric/expo-monorepo-example#-workflows"><b>Workflows</b></a>
-  &ensp;&mdash;&ensp;
-  <a href="https://github.com/byCedric/expo-monorepo-example#%EF%B8%8F-caveats"><b>Caveats & Issues</b></a>
-</p>
+<img width="1758" alt="turbo2" src="https://user-images.githubusercontent.com/51714798/213819392-33e50db9-3e38-4c51-9a22-03abe5e48f3d.png">
 
-<br />
+## Installation
 
-## ⚡ Why is it fast?
+There are two ways of initializing an app using `create-t3-turbo` starter. You can either use this repository as a template or use Turbo's CLI to init your project:
 
-This repository uses both [pnpm](https://pnpm.io/) and [Turborepo](https://turbo.build/repo) to speed things up, _by a lot_. With pnpm, we leverage the installation performance using the global store cache. Turborepo helps us to run certain tasks, and cache the result if we rerun tasks with the same input or code. In the workflows we cache the [pnpm store](./.github/actions/setup-monorepo/action.yml#L37) and [Turborepo cache](./.github/actions/setup-monorepo/action.yml#L50-L56) using GitHub Actions built-in cache, resulting in the best performance possible.
+```bash
+npx create-turbo@latest -e https://github.com/t3-oss/create-t3-turbo
+```
 
-### What about Metro?
+## About
 
-In **apps/mobile** we leverage the Metro cache to speed up building and publishing. We use Turborepo to restore or invalidate this cache, working around [potential environment variable issues](#using-environment-variables-in-react-native). To populate this Metro cache, the **apps/mobile** has a [`$ pnpm build`](./apps/mobile/package.json#L9) script that exports React Native bundles. The resulting Metro cache is then reused when [publishing previews](./.github/workflows/preview.yml#L26-L28).
+Ever wondered how to migrate your T3 application into a monorepo? Stop right here! This is the perfect starter repo to get you running with the perfect stack!
 
-## ℹ️ Should I use it?
+It uses [Turborepo](https://turborepo.org/) and contains:
 
-This repository demonstrates a working stack using [Expo](https://docs.expo.dev/) in a fast monorepo, while sharing most of the codebase with web. The primary goal of this repository is to showcase what is possible with Expo while keeping the code as "vanilla" as possible. Feel free to use this repository however you prefer, but when starting a project from scratch, consider a template with more assumptions. Those assumptions should help you develop your project faster than this repository can.
+```
+.github
+  └─ workflows
+        └─ CI with pnpm cache setup
+.vscode
+  └─ Recommended extensions and settings for VSCode users
+apps
+  ├─ expo
+  |   ├─ Expo SDK 48
+  |   ├─ React Native using React 18
+  |   ├─ Navigation using Expo Router
+  |   ├─ Tailwind using Nativewind
+  |   └─ Typesafe API calls using tRPC
+  └─ next.js
+      ├─ Next.js 13
+      ├─ React 18
+      ├─ Tailwind CSS
+      └─ E2E Typesafe API Server & Client
+packages
+ ├─ api
+ |   └─ tRPC v10 router definition
+ ├─ auth
+     └─ authentication using next-auth. **NOTE: Only for Next.js app, not Expo**
+ └─ db
+     └─ typesafe db-calls using Prisma
+```
 
-- [`create-t3-turbo`](https://github.com/t3-oss/create-t3-turbo) → [Expo](https://docs.expo.dev/), [Next.js](https://nextjs.org/), [pnpm](https://pnpm.io/), [Turborepo](https://turbo.build/repo), [NextAuth.js](https://next-auth.js.org/), [Prisma](https://www.prisma.io/), and [tRPC](https://trpc.io/).
+> In this template, we use `@acme` as a placeholder for package names. As a user, you might want to replace it with your own organization or project name. You can use find-and-replace to change all the instances of `@acme/` to something like `@my-company/` / `@project-name/`.
 
-## 🚀 How to use it
+## FAQ
 
-You can use and modify this repository however you want. If you want to use EAS to build your app, you'll need to create an [Expo access token](https://expo.dev/accounts/[account]/settings/access-tokens) and set it as `EXPO_TOKEN` GitHub actions secret.
+### Can you include Solito?
 
-To run the repository locally, run these two commands:
+No. Solito will not be included in this repo. It is a great tool if you want to share code between your Next.js and Expo app. However, the main purpose of this repo is not the integration between Next.js and Expo - it's the codesplitting of your T3 App into a monorepo, the Expo app is just a bonus example of how you can utilize the monorepo with multiple apps but can just as well be any app such as Vite, Electron, etc.
 
-- `$ pnpm install` - This installs all required Node libraries using [pnpm](https://pnpm.io/).
-- `$ pnpm dev` - Starts the development servers for all **apps**.
+Integrating Solito into this repo isn't hard, and there are a few [offical templates](https://github.com/nandorojo/solito/tree/master/example-monorepos) by the creators of Solito that you can use as a reference.
 
-### Commands
+### What auth solution should I use instead of Next-Auth.js for Expo?
 
-Because this monorepo uses [Turborepo](https://turbo.build/repo), you don't need to run additional commands to set things up. Whenever you run `$ pnpm build`, it will build all **packages** if they aren't built yet. In this monorepo we use a few commands or pipelines:
+I've left this kind of open for you to decide. Some options are [Clerk](https://clerk.dev), [Supabase Auth](https://supabase.com/docs/guides/auth), [Firebase Auth](https://firebase.google.com/docs/auth/) or [Auth0](https://auth0.com/docs). Note that if you're dropping the Expo app for something more "browser-like", you can still use Next-Auth.js for those. [See an example in a Plasmo Chrome Extension here](https://github.com/t3-oss/create-t3-turbo/tree/chrome/apps/chrome).
 
-- `$ pnpm dev` - Build and watch all **apps** and **packages** for development.
-- `$ pnpm lint` - Analyze the source code of all **apps** and **packages** using ESLint.
-- `$ pnpm test` - Run all tests for packages with Jest tests.
-- `$ pnpm build` - Build all **apps** and **packages** for production or to publish them on npm.
+The Clerk.dev team even made an [official template repository](https://github.com/clerkinc/t3-turbo-and-clerk) integrating Clerk.dev with this repo.
 
-When developing or deploying a single app, you might not need the development server for all apps. For example, if you need to make a fix in the mobile app, you don't need the web development server. Or when deploying a single app to production, you only need to build that single app with all dependencies.
+During Launch Week 7, Supabase [announced their fork](https://supabase.com/blog/launch-week-7-community-highlights#t3-turbo-x-supabase) of this repo integrating it with their newly announced auth improvements. You can check it out [here](https://github.com/supabase-community/create-t3-turbo).
 
-This monorepo uses a simple npm script convention of `dev:<app-name>` and `build:<app-name>` to keep this process simple. Under the hood, it uses [Turborepo's workspace filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering), defined as an npm script in the root [**package.json**](./package.json).
+### Does this pattern leak backend code to my client applications?
 
-- `$ pnpm dev:mobile` - Build and watch **app/mobile** and all **packages** used in mobile, for development.
-- `$ pnpm dev:web` - Build and watch **app/web** and all **packages** used in web, for development.
-- `$ pnpm build:mobile` - Build **apps/mobile** and all **packages** used in mobile, for production deployments
-- `$ pnpm build:web` - Build **apps/web** and all **packages** used in web, for production deployments
+No, it does not. The `api` package should only be a production dependency in the Next.js application where it's served. The Expo app, and all other apps you may add in the future, should only add the `api` package as a dev dependency. This lets you have full typesafety in your client applications, while keeping your backend code safe.
 
-### Switching to yarn or npm
+If you need to share runtime code between the client and server, such as input validation schemas, you can create a separate `shared` package for this and import on both sides.
 
-You can use yarn or npm with this monorepo as well. If you want to use one of these package managers, instead of pnpm, all you have to do is:
+## Quick Start
 
-- Remove **.npmrc**, **pnpm-lock.yaml**, and **pnpm-workspace.yaml**.
-- Remove the `pnpm` property from the root **package.json** file.
-- Add the [`workspaces`](https://docs.npmjs.com/cli/v8/using-npm/workspaces) property to the root **package.json** file.
-- Update the workflows to use yarn or npm instead.
+To get it running, follow the steps below:
 
-## 📁 Structure
+### Setup dependencies
 
-- [`apps`](./apps) - Apps that only use packages and aren't aware of other apps.
-- [`packages`](./packages) - Packages that may use external and/or other monorepo packages.
+```diff
+# Install dependencies
+pnpm i
 
-### Apps
+# In packages/db/prisma update schema.prisma provider to use sqlite
+# or use your own database provider
+- provider = "postgresql"
++ provider = "sqlite"
 
-- [`apps/mobile`](./apps/mobile) - Expo app using `eslint-config` and `feature-home` packages.
-- [`apps/web`](./apps/web) - Next.js app using `eslint-config` and `feature-home` packages.
+# Configure environment variables.
+# There is an `.env.example` in the root directory you can use for reference
+cp .env.example .env
 
-### Packages
+# Push the Prisma schema to your database
+pnpm db:push
+```
 
-- [`packages/eslint-config`](./packages/eslint-config) - Preconfigured ESLint configuration for each app or package.
-- [`packages/feature-home`](./packages/feature-home) - Shared React Native domain-logic for apps, using both `ui` and `eslint-config` packages.
-- [`packages/ui`](./packages/ui) - Shared React Native UI components for apps, using the `eslint-config` package.
+### Configure Expo `dev`-script
 
-## 👷 Workflows
+#### Use iOS Simulator
 
-- [`build`](./.github/workflows/build.yml) - Starts the EAS builds for **apps/mobile** using the given profile.
-- [`preview`](./.github/workflows/preview.yml) - Publishes apps to a PR-specific release channel and adds a QR code to that PR.
-- [`test`](./.github/workflows/test.yml) - Ensures that the apps and packages are healthy on multiple OSs.
+1. Make sure you have XCode and XCommand Line Tools installed [as shown on expo docs](https://docs.expo.dev/workflow/ios-simulator/).
+   > **NOTE:** If you just installed XCode, or if you have updated it, you need to open the simulator manually once. Run `npx expo start` in the root dir, and then enter `I` to launch Expo Go. After the manual launch, you can run `pnpm dev` in the root directory.
 
-### Composite workflows
+```diff
++  "dev": "expo start --ios",
+```
 
-- [`setup-monorepo`](./.github/actions/setup-monorepo/action.yml) - Reusable composite workflow to setup the monorepo in GitHub Actions.
+3. Run `pnpm dev` at the project root folder.
 
-## ⚠️ Caveats
+> **TIP:** It might be easier to run each app in separate terminal windows so you get the logs from each app separately. This is also required if you want your terminals to be interactive, e.g. to access the Expo QR code. You can run `pnpm --filter expo dev` and `pnpm --filter nextjs dev` to run each app in a separate terminal window.
 
-### Using environment variables in React Native
+#### For Android
 
-Reusing Metro caches can be dangerous if you use Babel plugins like [transform-inline-environment-variables](https://babeljs.io/docs/en/babel-plugin-transform-inline-environment-variables/). When using Babel plugins to swap out environment variables for their actual value, you are creating a dependency on environment variables. Because Metro is unaware of dependencies on environment variables, Metro might reuse an incorrect cached environment variable.
+1. Install Android Studio tools [as shown on expo docs](https://docs.expo.dev/workflow/android-studio-emulator/).
+2. Change the `dev` script at `apps/expo/package.json` to open the Android emulator.
 
-Since Turborepo handles the cache in this repository, we can leverage [caching based on environment variables](https://turbo.build/repo/docs/core-concepts/caching#altering-caching-based-on-environment-variables). This invalidates the Metro cache whenever certain environment variables are changed and avoid reusing incorrect cached code.
+```diff
++  "dev": "expo start --android",
+```
 
-### pnpm workarounds
+3. Run `pnpm dev` at the project root folder.
 
-In the current React Native ecosystem, there are a lot of implicit dependencies. These can be from the native code that is shipped within packages, or even implicit dependencies through installing a specific version of Expo or React Native. In the newer package managers like pnpm, you will run into issues due to these implicit dependencies. Besides that there are other issues like [Metro not following symlinks](https://github.com/facebook/metro/issues/1).
+## Deployment
 
-To workaround these issues, we have to change some config:
+### Next.js
 
-1. Let pnpm generate a flat **node_modules** folder, without symlinks. You can do that by creating a root [**.npmrc**](./.npmrc) file containing ([`node-linker=hoisted`](https://pnpm.io/npmrc#node-linker)). This works around two things; no Metro symlink support, and having a simple way to determine where the modules are installed (see point 3).
+#### Prerequisites
 
-2. Either disable [`strict-peer-dependencies`](https://pnpm.io/npmrc#strict-peer-dependencies) or add [`peerDependencyRules.ignoreMissing`](./package.json#L14-L22) rules in the **package.json**. This disables some of the expected implicit peer dependencies issues. Without these changes, pnpm will fail on install asking you to install various peer dependencies.
+_We do not recommend deploying a SQLite database on serverless environments since the data wouldn't be persisted. I provisioned a quick Postgresql database on [Railway](https://railway.app), but you can of course use any other database provider. Make sure the prisma schema is updated to use the correct database._
 
-3. Update the **metro.config.js** configuration for usage in monorepos. Full explanation per configuration option can be found in the [Expo docs](https://docs.expo.dev/guides/monorepos/#modify-the-metro-config). The only addition in this repository is the [`config.cacheStores`](./apps/mobile/metro.config.js#L22-L24). This change moves the Metro cache to a place which is accessible by Turborepo, our main cache handler (see [Why is it fast?](#-why-is-it-fast)).
+**Please note that the Next.js application with tRPC must be deployed in order for the Expo app to communicate with the server in a production environment.**
 
+#### Deploy to Vercel
 
-### Precompile packages
+Let's deploy the Next.js application to [Vercel](https://vercel.com/). If you have ever deployed a Turborepo app there, the steps are quite straightforward. You can also read the [official Turborepo guide](https://vercel.com/docs/concepts/monorepos/turborepo) on deploying to Vercel.
 
-EAS only sends the files which are committed to the repository. That means [the `packages/*/build` folders](.gitignore#L3) need to be generated before building our apps. To tell EAS how to compile our packages, we can [use the `postinstall` hook](https://docs.expo.dev/build-reference/how-tos/#how-to-set-up-eas-build-with).
+1. Create a new project on Vercel, select the `apps/nextjs` folder as the root directory and apply the following build settings:
 
-### Running EAS from apps directories
+<img width="927" alt="Vercel deployment settings" src="https://user-images.githubusercontent.com/11340449/201974887-b6403a32-5570-4ce6-b146-c486c0dbd244.png">
 
-As of writing, the `eas build` command needs to be executed from the package folder itself. EAS will still create a tarball with all files from your monorepo, but runs the build commands from this local folder. You can see this happening in the [build workflow](./.github/workflows/build.yml#L32).
+> The install command filters out the expo package and saves a few second (and cache size) of dependency installation. The build command makes us build the application using Turbo.
 
-### Using local credentials in CI
+2. Add your `DATABASE_URL` environment variable.
 
-If you want to maintain the keystore or certificates yourself, you have to [configure EAS with local credentials](https://docs.expo.dev/app-signing/local-credentials/#credentialsjson). When your CI provider doesn't allow you to add "secret files", you can [encode these files to base64 strings](https://docs.expo.dev/app-signing/local-credentials/#using-local-credentials-on-builds-triggered-from) and decode whenever you need it.
+3. Done! Your app should successfully deploy. Assign your domain and use that instead of `localhost` for the `url` in the Expo app so that your Expo app can communicate with your backend when you are not in development.
 
-> It's highly recommended to keep keystores and certificates out of your repository to avoid security issues.
+### Expo
 
-## ❌ Common issues
+Deploying your Expo application works slightly differently compared to Next.js on the web. Instead of "deploying" your app online, you need to submit production builds of your app to the app stores, like [Apple App Store](https://www.apple.com/app-store/) and [Google Play](https://play.google.com/store/apps). You can read the full [Distributing your app](https://docs.expo.dev/distribution/introduction/), including best practices, in the Expo docs.
 
-_No ongoing issues, we are actively monitoring and fixing potential issues_
+1. Make sure to modify the `getBaseUrl` function to point to your backend's production URL:
 
-<div align="center">
-  <br />
-  with&nbsp;:heart:&nbsp;&nbsp;<strong>byCedric</strong>
-  <br />
-</div>
+https://github.com/t3-oss/create-t3-turbo/blob/656965aff7db271e5e080242c4a3ce4dad5d25f8/apps/expo/src/utils/api.tsx#L20-L37
+
+2. Let's start by setting up [EAS Build](https://docs.expo.dev/build/introduction/), which is short for Expo Application Services. The build service helps you create builds of your app, without requiring a full native development setup. The commands below are a summary of [Creating your first build](https://docs.expo.dev/build/setup/).
+
+   ```bash
+   // Install the EAS CLI
+   $ pnpm add -g eas-cli
+
+   // Log in with your Expo account
+   $ eas login
+
+   // Configure your Expo app
+   $ cd apps/expo
+   $ eas build:configure
+   ```
+
+3. After the initial setup, you can create your first build. You can build for Android and iOS platforms and use different [**eas.json** build profiles](https://docs.expo.dev/build-reference/eas-json/) to create production builds or development, or test builds. Let's make a production build for iOS.
+
+   ```
+   $ eas build --platform ios --profile production
+   ```
+
+   > If you don't specify the `--profile` flag, EAS uses the `production` profile by default.
+
+4. Now that you have your first production build, you can submit this to the stores. [EAS Submit](https://docs.expo.dev/submit/introduction/) can help you send the build to the stores.
+
+   ```
+   $ eas submit --platform ios --latest
+   ```
+
+   > You can also combine build and submit in a single command, using `eas build ... --auto-submit`.
+
+5. Before you can get your app in the hands of your users, you'll have to provide additional information to the app stores. This includes screenshots, app information, privacy policies, etc. _While still in preview_, [EAS Metadata](https://docs.expo.dev/eas/metadata/) can help you with most of this information.
+
+6. Once everything is approved, your users can finally enjoy your app. Let's say you spotted a small typo; you'll have to create a new build, submit it to the stores, and wait for approval before you can resolve this issue. In these cases, you can use EAS Update to quickly send a small bugfix to your users without going through this long process. Let's start by setting up EAS Update.
+
+   The steps below summarize the [Getting started with EAS Update](https://docs.expo.dev/eas-update/getting-started/#configure-your-project) guide.
+
+   ```bash
+   // Add the `expo-updates` library to your Expo app
+   $ cd apps/expo
+   $ pnpm expo install expo-updates
+
+   // Configure EAS Update
+   $ eas update:configure
+   ```
+
+7. Before we can send out updates to your app, you have to create a new build and submit it to the app stores. For every change that includes native APIs, you have to rebuild the app and submit the update to the app stores. See steps 2 and 3.
+
+8. Now that everything is ready for updates, let's create a new update for `production` builds. With the `--auto` flag, EAS Update uses your current git branch name and commit message for this update. See [How EAS Update works](https://docs.expo.dev/eas-update/how-eas-update-works/#publishing-an-update) for more information.
+
+   ```bash
+   $ cd apps/expo
+   $ eas update --auto
+   ```
+
+   > Your OTA (Over The Air) updates must always follow the app store's rules. You can't change your app's primary functionality without getting app store approval. But this is a fast way to update your app for minor changes and bug fixes.
+
+9. Done! Now that you have created your production build, submitted it to the stores, and installed EAS Update, you are ready for anything!
+
+## References
+
+The stack originates from [create-t3-app](https://github.com/t3-oss/create-t3-app).
+
+A [blog post](https://jumr.dev/blog/t3-turbo) where I wrote how to migrate a T3 app into this.
