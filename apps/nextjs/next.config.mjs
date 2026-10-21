@@ -1,3 +1,5 @@
+import "../../scripts/check-runtime.mjs";
+
 // Importing env files here to validate on build
 import "./src/env.mjs";
 import "@acme/auth/env.mjs";
