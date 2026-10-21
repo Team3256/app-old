@@ -1,3 +1,5 @@
+import "../../../scripts/check-runtime.mjs";
+
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import type { DefaultSession, NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";

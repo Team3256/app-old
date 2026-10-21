@@ -2,9 +2,9 @@
   "name": "create-t3-turbo",
   "private": true,
   "engines": {
-    "node": ">=v18.16.0"
+    "node": "^22.23.4 || ^24.22.1 || >=26.12.1"
   },
-  "packageManager": "pnpm@8.6.7",
+  "packageManager": "pnpm@10.34.7",
   "scripts": {
     "build": "turbo build",
     "clean": "git clean -xdf node_modules",
@@ -16,7 +16,9 @@
     "format": "prettier --write \"**/*.{js,cjs,mjs,ts,tsx,md,json}\" --ignore-path .gitignore",
     "lint": "turbo lint && manypkg check",
     "lint:fix": "turbo lint:fix && manypkg fix",
-    "type-check": "turbo type-check"
+    "type-check": "turbo type-check",
+    "preinstall": "node scripts/check-runtime.mjs",
+    "test:runtime": "node --test scripts/check-runtime.test.mjs"
   },
   "dependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
@@ -25,5 +27,25 @@
     "prettier-plugin-tailwindcss": "^0.4.1",
     "turbo": "^1.10.7",
     "typescript": "^5.1.6"
+  },
+  "pnpm": {
+    "overrides": {
+      "node-fetch@2": "2.7.0",
+      "postcss@8": "8.5.23",
+      "package-json@6": "7.0.0",
+      "form-data@3": "3.0.5",
+      "fast-xml-parser@4": "4.5.7",
+      "@babel/traverse@7": "^7.23.2",
+      "shell-quote@1": "1.12.0",
+      "openid-client@5": "5.7.1"
+    },
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "@swc/core",
+      "prisma",
+      "sharp",
+      "turbo"
+    ]
   }
 }
